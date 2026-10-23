@@ -10,7 +10,7 @@ https://mospoliteh2627-alt.github.io/guvanchsha/
 ## Ссылки
 
 - Project-доска: https://github.com/users/mospoliteh2627-alt/projects/1
-- Исходный код: https://github.com/mospoliteh2627-alt/seamless-banking (private)
+- Исходный код: https://github.com/mospoliteh2627-alt/seamless-banking (public)
 - Релиз APK/IPA: https://github.com/mospoliteh2627-alt/seamless-banking/releases/tag/v1.0.0
 - Документация сборки: https://github.com/mospoliteh2627-alt/seamless-banking/blob/main/docs/NATIVE_BUILD.md
 
