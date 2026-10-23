@@ -1,11 +1,260 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Мой личный сайт</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081a33">
+  <meta name="description" content="Seamless Banking — прототип бесшовного перехода между веб- и мобильным банковским приложением. Магистерская диссертация, Мосполитех.">
+  <title>Seamless Banking — проект</title>
+  <style>
+    :root {
+      --ink: #081a33;
+      --ink-2: #12345f;
+      --accent: #2f6bff;
+      --mint: #16b8a6;
+      --paper: #f4f7fc;
+      --card: #ffffff;
+      --muted: #5c6d84;
+      --line: #dfe7f3;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 90% -10%, #dce8ff 0, transparent 60%),
+        radial-gradient(700px 400px at -10% 20%, #dff8f3 0, transparent 55%),
+        var(--paper);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { padding: 22px 0; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; }
+    .mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--ink); color: #fff; display: grid; place-items: center;
+      font-size: 15px; box-shadow: 0 8px 20px rgb(8 26 51 / 20%);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px;
+      background: rgb(255 255 255 / 70%); color: var(--muted);
+      font-size: 12px; font-weight: 600; backdrop-filter: blur(8px);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgb(22 184 166 / 14%); }
+    .hero { padding: 64px 0 34px; }
+    .eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 900px; font-size: clamp(34px, 6vw, 64px); line-height: 1.02; letter-spacing: -.045em; }
+    .hero p.lead { max-width: 720px; margin: 20px 0 0; color: var(--muted); font-size: clamp(15px, 2vw, 18px); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 46px; padding: 0 18px; border-radius: 13px; border: 1px solid transparent;
+      text-decoration: none; font-weight: 700; font-size: 14px;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 24px rgb(47 107 255 / 26%); }
+    .btn-ghost { background: rgb(255 255 255 / 80%); border-color: var(--line); color: var(--ink); }
+    .btn-note { align-self: center; color: var(--muted); font-size: 12px; }
+    .metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin: 36px 0 0;
+    }
+    .metric {
+      padding: 16px 16px 14px; border: 1px solid var(--line); border-radius: 16px;
+      background: rgb(255 255 255 / 78%); backdrop-filter: blur(10px);
+    }
+    .metric strong { display: block; font-size: 26px; letter-spacing: -.03em; }
+    .metric span { display: block; margin-top: 2px; color: var(--muted); font-size: 11.5px; }
+    main { padding: 26px 0 70px; }
+    section { margin-top: 34px; }
+    h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.025em; }
+    .section-lead { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card {
+      padding: 20px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--card); box-shadow: 0 1px 0 rgb(8 26 51 / 3%);
+    }
+    .card h3 { margin: 0 0 6px; font-size: 15px; letter-spacing: -.01em; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .tag {
+      display: inline-block; margin-bottom: 12px; padding: 4px 8px; border-radius: 7px;
+      background: #eef4ff; color: #1f56d6; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .tag.mint { background: #e8f9f5; color: #0c7f72; }
+    .tag.dark { background: var(--ink); color: #fff; }
+    .split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; }
+    .dark {
+      background: linear-gradient(145deg, var(--ink), var(--ink-2));
+      color: #fff; border-color: transparent;
+    }
+    .dark p, .dark li { color: rgb(255 255 255 / 72%); }
+    .dark h3 { color: #fff; }
+    .stack { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+    .chip { padding: 5px 9px; border: 1px solid rgb(255 255 255 / 18%); border-radius: 8px; color: rgb(255 255 255 / 82%); font-size: 11px; }
+    ul.checks { margin: 12px 0 0; padding: 0; list-style: none; }
+    ul.checks li { position: relative; margin: 8px 0; padding-left: 20px; font-size: 13px; }
+    ul.checks li::before { content: "✓"; position: absolute; left: 0; color: var(--mint); font-weight: 900; }
+    .links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+    .link {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 13px 14px; border: 1px solid var(--line); border-radius: 13px;
+      background: #fff; text-decoration: none; font-size: 13px; font-weight: 650;
+      transition: border-color .16s ease, transform .16s ease;
+    }
+    .link:hover { border-color: #b9ccff; transform: translateY(-1px); }
+    .link small { color: var(--muted); font-weight: 500; }
+    footer { padding: 26px 0 42px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    @media (max-width: 900px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .hero { padding-top: 42px; }
+      .grid, .links { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .badge { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn, .link { transition: none; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Привет! Это мой сайт, запущенный через GitHub Pages.</h1>
-    <p>Скоро здесь будет визитка или портфолио.</p>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="mark" aria-hidden="true">VB</span> Seamless Banking</div>
+      <span class="badge"><span class="dot" aria-hidden="true"></span> Демо-прототип · 2026</span>
+    </div>
+  </header>
+
+  <div class="wrap hero">
+    <p class="eyebrow">Магистерская диссертация · 09.04.02</p>
+    <h1>Начните перевод на компьютере.<br>Закончите на телефоне.</h1>
+    <p class="lead">
+      Прототип бесшовного перехода между веб- и мобильным банковским приложением:
+      одноразовый билет, QR, обязательный step-up, аренда единственного писателя
+      и восстановление контекста без повторного ввода.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/users/mospoliteh2627-alt/projects/1">Открыть Project-доску →</a>
+      <a class="btn btn-ghost" href="https://github.com/mospoliteh2627-alt/seamless-banking">Исходный код</a>
+      <a class="btn btn-ghost" href="https://github.com/mospoliteh2627-alt/seamless-banking/releases/tag/v1.0.0">APK / IPA</a>
+      <span class="btn-note">Репозиторий кода приватный; доступ — у автора.</span>
+    </div>
+
+    <div class="metrics" aria-label="Показатели проекта">
+      <div class="metric"><strong>119</strong><span>страниц диссертации</span></div>
+      <div class="metric"><strong>19</strong><span>рисунков и экранов</span></div>
+      <div class="metric"><strong>26</strong><span>таблиц</span></div>
+      <div class="metric"><strong>63</strong><span>источника</span></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section>
+      <h2>Что реализовано</h2>
+      <p class="section-lead">Не макет, а работающий контур: веб-клиент, API и Flutter-приложение.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">Web</span>
+          <h3>Плавный переход и timeline</h3>
+          <p>QR-код, шестизначный код, таймер, четыре фазы перехода и время восстановления контекста.</p>
+        </article>
+        <article class="card">
+          <span class="tag mint">Mobile</span>
+          <h3>Flutter + нативные сборки</h3>
+          <p>Сканирование, Face ID/PIN sheet, процесс и SLA, избранные получатели. Android APK собран и проверен.</p>
+        </article>
+        <article class="card">
+          <span class="tag dark">API</span>
+          <h3>Одноразовый билет и lease</h3>
+          <p>Fastify 5, Redis/in-memory, GETDEL, WATCH/MULTI, идемпотентность submit и дневной лимит.</p>
+        </article>
+        <article class="card">
+          <span class="tag">B2B</span>
+          <h3>Процесс, SLA и аудит</h3>
+          <p>Канбан операций, риск, SLA, hash chain аудита, RBAC и экспорт CSV/JSON.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Research</span>
+          <h3>Панель исследования</h3>
+          <p>Гипотезы, метрики, сессии, сравнение условий A/B/C и имитационная модель на 17 280 наблюдениях.</p>
+        </article>
+        <article class="card">
+          <span class="tag mint">Native</span>
+          <h3>Android и iOS</h3>
+          <p>APK 64 МБ для Android; iOS arm64 собран без подписи. Ограничения и команды — в документации.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="split">
+      <article class="card dark">
+        <span class="tag" style="background:rgb(255 255 255 / 14%);color:#fff">Стек</span>
+        <h3>Fastify 5 · Redis 7 · PWA · Flutter 3</h3>
+        <p>Монорепозиторий: API, веб-клиент, мобильный клиент, OpenAPI-контракт, E2E-тесты и инфраструктура.</p>
+        <ul class="checks">
+          <li>3 Node E2E + 2 Flutter-теста + Playwright UI flow</li>
+          <li>CRR = 100 %, p95 = 15 мс, replay → 409</li>
+          <li>Идемпотентность, лимит 500 000 ₽, аудит</li>
+          <li>10 экранных материалов в диссертации</li>
+        </ul>
+        <div class="stack" aria-label="Технологии">
+          <span class="chip">Node 20+</span><span class="chip">Fastify</span><span class="chip">Redis</span>
+          <span class="chip">WebSocket</span><span class="chip">Flutter</span><span class="chip">Dart</span>
+          <span class="chip">Android SDK</span><span class="chip">Xcode</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Ссылки проекта</h3>
+        <p>Доска, код, релиз и документация.</p>
+        <div class="links">
+          <a class="link" href="https://github.com/users/mospoliteh2627-alt/projects/1">Project-доска <small>10 задач</small></a>
+          <a class="link" href="https://github.com/mospoliteh2627-alt/guvanchsha/projects">Projects репозитория <small>guvanchsha</small></a>
+          <a class="link" href="https://github.com/mospoliteh2627-alt/seamless-banking">Исходный код <small>private</small></a>
+          <a class="link" href="https://github.com/mospoliteh2627-alt/seamless-banking/releases/tag/v1.0.0">Релиз v1.0.0 <small>APK · IPA</small></a>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Статус</h2>
+      <p class="section-lead">Что проверено, а что остаётся ограничением.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Проверено</h3>
+          <p>Web → Mobile, Mobile → Web, CRR 100 %, replay 409, lease, лимит, получатели, Android APK на Pixel_5.</p>
+        </article>
+        <article class="card">
+          <h3>Ограничения</h3>
+          <p>iOS без подписи, нативный Face ID — демо, полевого SUS/CES нет, Redis в демо может быть in-memory.</p>
+        </article>
+        <article class="card">
+          <h3>Дальше</h3>
+          <p>Пилот 12–15 участников, SUS/CES, подпись iOS, release keystore для Android, PostgreSQL и KMS.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 · Seamless Banking · Мосполитех</span>
+      <span>Статическая страница проекта · GitHub Pages</span>
+    </div>
+  </footer>
 </body>
 </html>
